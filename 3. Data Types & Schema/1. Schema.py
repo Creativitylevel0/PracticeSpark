@@ -1,4 +1,8 @@
 # Databricks notebook source
+# /// script
+# [tool.databricks.environment]
+# environment_version = "2"
+# ///
 # MAGIC %md
 # MAGIC ####Requirement
 # MAGIC 1. Load data from flight-time.json into a table
@@ -21,10 +25,6 @@
 # MAGIC     CANCELLED INT, 
 # MAGIC     DISTANCE INT
 # MAGIC ```
-
-# COMMAND ----------
-
-flight_schema = 
 
 # COMMAND ----------
 

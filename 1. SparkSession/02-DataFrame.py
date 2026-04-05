@@ -9,16 +9,16 @@
 
 # COMMAND ----------
 
-3%sql
-CREATE TABLE IF NOT EXISTS dev.spark_db.sf_fire_calls(
-  CallNumber INT, UnitID STRING, IncidentNumber INT, CallType STRING, CallDate DATE,
-  WatchDate DATE, CallFinalDisposition STRING, AvailableDtTm TIMESTAMP, Address STRING,
-  City STRING, Zipcode STRING, Battalion STRING, StationArea STRING, Box STRING,
-  OriginalPriority STRING, Priority STRING, FinalPriority STRING, ALSUnit BOOLEAN,
-  CallTypeGroup STRING, NumAlarms INT, UnitType STRING, UnitSequenceInCallDispatch INT,
-  FirePreventionDistrict STRING, SupervisorDistrict STRING, Neighborhood STRING,
-  Location STRING, RowID STRING, Delay DOUBLE);
-
+# MAGIC %sql
+# MAGIC CREATE TABLE IF NOT EXISTS dev.spark_db.sf_fire_calls(
+# MAGIC   CallNumber INT, UnitID STRING, IncidentNumber INT, CallType STRING, CallDate DATE,
+# MAGIC   WatchDate DATE, CallFinalDisposition STRING, AvailableDtTm TIMESTAMP, Address STRING,
+# MAGIC   City STRING, Zipcode STRING, Battalion STRING, StationArea STRING, Box STRING,
+# MAGIC   OriginalPriority STRING, Priority STRING, FinalPriority STRING, ALSUnit BOOLEAN,
+# MAGIC   CallTypeGroup STRING, NumAlarms INT, UnitType STRING, UnitSequenceInCallDispatch INT,
+# MAGIC   FirePreventionDistrict STRING, SupervisorDistrict STRING, Neighborhood STRING,
+# MAGIC   Location STRING, RowID STRING, Delay DOUBLE);
+# MAGIC
 
 # COMMAND ----------
 

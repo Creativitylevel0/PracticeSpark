@@ -42,7 +42,17 @@ flight_time_raw_df.withColumns({
  })
 )
 
-step_1_df.limit(3).display()
+
+step_2_df = (
+step_1_df.withColumns({
+     "CRS_DEP_TIME_NEW": expr("CAST(CONCAT(CRS_DEP_TIME_HH, ':' ,CRS_DEP_TIME_MM) AS INTERVAL HOUR TO MINUTE)")
+ })
+)
+
+# COMMAND ----------
+
+step_2_df.limit(2).display()
+
 
 # COMMAND ----------
 
@@ -51,10 +61,46 @@ step_1_df.limit(3).display()
 
 # COMMAND ----------
 
+def get_interval(hhmm_value):
+    from pyspark.sql.functions import expr
+    return expr(f"""
+                 (cast(
+                    concat(left(lpad({hhmm_value},4,'0'), 2), ':',
+                    right(lpad({hhmm_value},4,'0'), 2))
+                    AS INTERVAL HOUR TO MINUTE)
+                     )
+                """)
+
+# COMMAND ----------
+
 # MAGIC %md
 # MAGIC ####4. Apply function to dataframe
 
 # COMMAND ----------
 
+result_df = (
+    flight_time_raw_df.withColumns({
+        "CRS_DEP_TIME": get_interval("CRS_DEP_TIME"),
+        "DEP_TIME": get_interval("DEP_TIME"),
+        "WHEELS_ON": get_interval("WHEELS_ON"),
+        "CRS_ARR_TIME": get_interval("CRS_ARR_TIME"),
+        "ARR_TIME": get_interval("ARR_TIME"),
+        "TAXI_IN": expr("cast(TAXI_IN AS INTERVAL MINUTE)")
+    })
+)
+
+result_df.limit(2).display()
+
+# COMMAND ----------
+
 # MAGIC %md
 # MAGIC ####5. Save results to the table 
+
+# COMMAND ----------
+
+result_df.write.mode("overwrite").option("overwriteSchema", "true").saveAsTable("dev.spark_db.flight_time")
+
+# COMMAND ----------
+
+# MAGIC %sql
+# MAGIC select * from dev.spark_db.flight_time
